@@ -18,3 +18,18 @@ export const getThing = (req: Request, res: Response) => {
 
   res.status(200).json(result);
 };
+
+export const deleteThing = (req: Request, res: Response) => {
+  const { idThing } = req.params;
+
+  const thingPosition = things.findIndex((thing) => thing.id === idThing);
+
+  if (thingPosition === -1) {
+    res.status(404).json({ message: "No things found" });
+    return;
+  }
+
+  things.splice(thingPosition, 1);
+
+  res.status(200).json({ message: "Thing deleted" });
+};
